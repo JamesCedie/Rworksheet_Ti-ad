@@ -1,0 +1,134 @@
+---
+title: "RWorkSheet_TIAD#2"
+author: "James Cedrick Tiad"
+date: "2024-09-26"
+output: html_document
+---
+
+#1. 
+  #a.
+  Operator <- c(seq(from = -5, to = 5))
+  Operator
+  
+  #b.
+  x <- 1:7
+  x
+
+#2. 
+  #a.
+  seq(from = 1, to = 3, by = 0.2)
+
+#3. 
+  ages <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35, 24,33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26, 18.)
+  #a.
+  ages[3]
+  
+  #b.
+  ages[c(2,4)]
+  
+  #c.
+  ages[c(-4, -12)]
+
+#4.
+  names <- c("first"=3, "second"=0, "third"=9)
+  
+  #a. 
+  names[c("first", "third")]
+  
+#5. 
+  neg3to2 <- seq(from = -3, to = 2)
+  neg3to2
+  #a. 
+  neg3to2[2] <- 0
+  neg3to2
+  
+#6. 
+  #a.
+  table4fuel <- data.frame(
+  Month = c("Jan", "Feb", "March", "Apr", "May", "June"),
+  PricePerLiter = c(52.50, 57.25, 60.00, 65.00, 74.25, 54.00),
+  PurchaseQuantity = c(25, 30, 40, 50, 10, 45)
+  )
+  table4fuel
+  
+  #b.The average fuel expenditure is 59.26.
+  aveFuel <- weighted.mean(table4fuel$PricePerLiter, table4fuel$PurchaseQuantity)
+  aveFuel
+  
+#7. 
+  #a.
+  rivers
+  #b. 
+  #It prints vector data with 7 elements, containing the number of elements   (length) in rivers, their sum    (sum), mean (mean), median(median), variance(var), standard deviation(sd),     minimum (min) and maximum     (max).
+  #c. 
+  data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),sd(rivers), min(rivers),    max(rivers))
+  data
+  
+#8. 
+  #a. 
+  PowerRanking <- c(1:25)
+  CelebrityName <- c("Tom Cruise", "Rolling Stones", "Ophrah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+  Pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+  ForbesRanking <- data.frame(PowerRanking = PowerRanking,
+  CelebrityName = CelebrityName, Pay = Pay)
+  ForbesRanking
+  
+  #b. 
+  ForbesRanking[ForbesRanking$CelebrityName == "J.K Rowling", "PowerRanking"] <- 15
+  ForbesRanking[ForbesRanking$CelebrityName == "J.K Rowling", "Pay"] <- 90
+  
+  ForbesRanking
+  
+  #c. 
+  write.csv(ForbesRanking, file = "PowerRanking.csv", row.names = FALSE)
+  importedRanking <- read.csv("PowerRanking.csv")
+  importedRanking
+  
+  #d.
+  Ranking <- ForbesRanking[10:20, ]
+  save(Ranking, file = "Ranks.RData")
+  Ranking
+  
+  #e. It outputs the selected parts which is Power Ranking 10 through 20.
+  
+#9.
+  #a.
+  HotelsVienna <- read_excel("Hotels-Vienna.xlsx")
+  HotelsVienna
+  
+  #b.
+  DIM <- dim(HotelsVienna)
+  DIM
+  
+  #c.
+  selectedcolumns <- HotelsVienna[, c("country", "neighbourhood", "price", "stars", "accommodation_type",     "rating")]
+  print(head(selectedcolumns))
+  
+  #d.
+  save(selectedcolumns, file = "new.RData")
+  selectedcolumns
+  
+  #e.
+  load("new.RData")
+  head(selectedcolumns)
+  tail(selectedcolumns)
+  
+#10.
+  #a.
+  ListedVegetables <- list("Carrots", "Squash", "Broccoli", "String Bean", "Potato", "Cabbage", "Mushroom", "Eggplant", "Cauliflower", "Corn")
+  Vegetables
+  
+  #b.
+  ListedVegetables <- append(ListedVegetables, c("Tomato", "Pea"))
+  ListedVegetables
+  
+  #c.
+  ListedVegetables <- append(ListedVegetables, c("Spinach", "Bitter Gourd", "Lettuce", "Bell Pepper"), after     = 5)
+  ListedVegetables
+  length(ListedVegetables)
+
+  #d.
+  ListedVegetables <- ListedVegetables[-c(5, 10, 15)]
+  ListedVegetables
+  length(ListedVegetables)
+  
