@@ -1,0 +1,91 @@
+---
+title: "RWorksheet_TIAD#3a"
+author: "James Cedrick Tiad"
+date: "2024-09-30"
+output: pdf_document
+---
+
+```{r}
+#USING VECTORS
+#1.
+  LETTERS
+  letters
+  #a.
+  Alpha11 <- LETTERS[c(1:11)]
+  Alpha11
+  #b.
+  odd_Alpha <- c(LETTERS[seq(1,26,2)])
+  odd_Alpha
+  #c.
+  vowels <- LETTERS[c(1,5,9,15,21)]
+  vowels
+  #d.
+  last5 <- tail(letters,5)
+  last5
+  #e.
+  alpha15to24 <- letters[c(15:24)]
+  alpha15to24
+#2.
+  #a.
+  city <- c("Tuguegarao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+  city
+  #b.
+  temp <- c(42, 39, 34, 34, 30, 27)
+  temp
+  #c.
+  citytemp_df <- data.frame(city, temp)
+  citytemp_df
+  #d.
+  names(citytemp_df) <- c("City", "Temperature")
+  citytemp_df
+  #e.
+  str(citytemp_df)
+  #f.
+  citytemp_df[3:4,]
+  #g.
+  citytemp_df[which.max(citytemp_df$Temperature),]
+  citytemp_df[which.min(citytemp_df$Temperature),]
+```
+
+  
+```{r}
+#USING MATRICES
+  #2.
+  #a.
+  nummatrix <- matrix(c(1,2,3,4,5,6,7,8,11,12,13,14), nrow = 3, ncol = 4)
+  nummatrix
+  #b.
+  mtrxx2 <- nummatrix * 2
+  mtrxx2
+  #c.
+  nummatrix[2,]
+  #d.
+  nummatrix[1:2, 3:4]
+  #e.
+  nummatrix[3, 2:3]
+  #f.
+  nummatrix[, 4]
+  #g.
+  rownames(mtrxx2) <- c("isa", "dalawa", "tatlo")
+  colnames(mtrxx2) <- c("uno", "dos", "tres", "quatro")
+  mtrxx2
+  #h.
+  dim(nummatrix) <- c(6, 2)
+  nummatrix
+```
+
+```{r}
+#USING ARRAY
+#3.
+  #a.
+  numARRAY <- array(rep(c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1), 2), c(2, 4, 3))
+  numARRAY
+  #b. I created 3 dimensions so that the values can all fit.
+  #c.
+  dimnames(numARRAY)[[1]] <- c("a", "b")
+  dimnames(numARRAY)[[2]] <- c("A", "B", "C", "D")
+  dimnames(numARRAY)[[3]] <- c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array")
+  numARRAY
+```
+ 
+ 
