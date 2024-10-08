@@ -65,7 +65,7 @@ persons <- c(5, 7, 3, 8, 6, 4, 4, 2, 11, 6)
 siblings <- c(2, 3, 0, 5, 2, 3, 1, 2, 6, 2)
 houses <- c("Wood", "Congrete", "Congrete", "Wood", "Semi-congrete", "Semi-congrete", "Wood", "Semi-congrete", "Semi-congrete", "Congrete")
 
-HOUSEdata <- data.frame(Respondents = respondents, Sex = sex, Fathers_Occupation = father, Persons_at_Home = persons, Siblings_at_School = siblings, Types_of_Houses = houses)
+HOUSEdata <- data.frame(Respondents = respondents, Sex = sex, fathers_occupation = father, Persons_at_Home = persons, Siblings_at_School = siblings, Types_of_Houses = houses)
 HOUSEdata
 
 write.csv(HOUSEdata, file = "HouseholdData.csv", FALSE)
@@ -73,19 +73,19 @@ write.csv(HOUSEdata, file = "HouseholdData.csv", FALSE)
  Imported <- read.csv("HouseholdData.csv")
  Imported
  #b.
- Imported$Sex <- factor(Imported$Sex, levels = c("Male", "Female"), labels = c(1, 2))
-  Imported
+ HOUSEdata$Sex <- factor(HOUSEdata$Sex, levels = c("Male", "Female"), labels = c(1, 2))
+  HOUSEdata
  #c.
- Imported$Types_of_Houses <- factor(Imported$Types_of_Houses, levels = c("Wood", "Congrete", "Semi-congrete"), labels = c(1, 2, 3))
-Imported
+ HOUSEdata$Types_of_Houses <- factor(HOUSEdata$Types_of_Houses, levels = c("Wood", "Congrete", "Semi-congrete"), labels = c(1, 2, 3))
+HOUSEdata
  #d.
- Imported$Fathers_Occupation <- factor(Imported$Fathers_Occupation, levels = c("Farmer", "Driver", "Others"), labels = c(1, 2, 3))
-Imported
+ HOUSEdata$fathers_occupation <- factor(HOUSEdata$fathers_occupation, levels = c(1, 2, 3), labels = c("Farmer","Driver","Other"))
+HOUSEdata
  #e.
- FR_drivers <- subset(Imported, Sex == 2 & Fathers_Occupation == 2)
- FR_drivers
+ FR_drivers <- subset(HOUSEdata, Sex == 2 & fathers_occupation =="Driver")
+ print(FR_drivers)
  #f.
- siblings_g5 <- subset(Imported, Siblings_at_School >= 5)
+ siblings_g5 <- subset(HOUSEdata, Siblings_at_School >= 5)
  siblings_g5
 #4.
 #The graph highlights how people’s feelings in tweets changed over several days,
