@@ -1,0 +1,69 @@
+---
+title: "RWorksheet_Tiad#4a"
+author: "James Cedrick Tiad"
+date: "2024-10-14"
+output: pdf_document
+---
+
+```{r}
+#1.
+  #a. The following table shows Shoe sizes, Height and gender data.
+  #b.
+  Shoe_size <- c(6.5,9.0,8.5,8.5,10.5,7.0,9.5,9.0,13.0,7.5,10.5,8.5,12.0,10.5,13.0,11.5,8.5,5.0,10.0,6.5,7.5,8.5,10.5,8.5,10.5,11.0,9.0,13.0
+)
+  Height <- c(66.0,68.0,64.5,65.0,70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0,77.0,72.0,59.0,62.0,72.0,66.0,64.0,67.0,73.0,69.0,72.0,70.0,69.0,70.0)
+  Gender <- c("F","F","F","F","M","F","F","F","M","F","M","F","M","M","M","M","F","F","M","F","F","M","M","F","M","M","M","M")
+  Shoe_Table <- data.frame(Shoe_size, Height, Gender)
+  Shoe_Table
+  
+  Male_Shoesizes <- subset(Shoe_Table, Gender == "M", select = c(Shoe_size, Height, Gender))
+  Male_Shoesizes
+  
+   Female_Shoesizes <- subset(Shoe_Table, Gender == "F", select = c(Shoe_size, Height, Gender))
+  Female_Shoesizes
+  
+  #c.mean of Shoes sizes  
+  mean_sizes <- mean(Shoe_size)
+  mean_sizes
+  
+  #mean of Height
+  mean_height <- mean(Height)
+  mean_height
+  
+  #d. Yes I think there is a relationship between Shoe sizes and height. Because                                             the taller you are the bigger your shoe size gets. 
+```
+
+```{r}
+#2.
+  months <- c("March", "April", "January", "November", "January", "September", "October", "September", "November", "August", "January", "November", "November", "February", "May", "August", "July", "December", "August", "August", "September", "November", "February", "April")
+
+  factor_months <- factor(months)
+  factor_months
+  
+  assign("factor_months_vector", factor_months)
+  factor_months_vector
+
+#3.
+  summary(months)
+  
+  summary(factor_months_vector)
+```
+
+```{r}
+#4.
+  Direction <- c("East", "West", "North")
+  frequency <- c(1,4,3)
+  difre_df <- data.frame(Direction,frequency)
+  difre_df
+  
+  new_order_data <- factor(Direction, levels = c("East", "West", "North"))
+  new_order_data
+```
+
+```{r}
+#5.
+  #a.
+  excel_table <- read.table("import_march.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+  excel_table
+```
+
