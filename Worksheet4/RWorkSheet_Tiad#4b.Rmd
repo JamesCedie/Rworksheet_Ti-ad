@@ -1,0 +1,214 @@
+---
+title: "RWorksheet_Tiad#4b"
+author: "James Cedrick Tiad"
+date: "2024-10-28"
+output: pdf_document
+---
+
+```{r}
+#USING LOOP FUNCTION
+#1.
+vectorA <- c(1, 2, 3, 4, 5)
+
+
+matrixB <- matrix(0, nrow = 5, ncol = 5)
+
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    difference <- abs(i - j)
+    matrixB[i, j] <- vectorA[difference + 1]
+  }
+}
+
+print(matrixB)  
+```
+
+```{r}
+#2.
+for(i in 1:5){
+  cat(rep("*", i), "\n")
+}
+```
+
+```{r}
+#3.
+
+Startnum  <- 10
+
+num1 <- 0
+num2 <- 1
+next_num <- Startnum
+
+repeat {
+  cat(next_num, " ")
+
+  num1 <- num2
+  num2 <- next_num
+  next_num <- num1 + num2
+
+  if (next_num >= 500) {
+    break
+  }
+}
+```
+
+```{r}
+#Using Basic Graphics (plot(),barplot(),pie(),hist())
+#4.
+#a.
+shoes <- read.csv(file = "Shoe_Table.csv")
+shoes
+head(shoes, n = 6L)
+
+#b.
+female_data <- subset(shoes, Gender == "F")
+male_data <- subset(shoes, Gender == "M")
+
+num_males <- nrow(male_data)
+num_females <- nrow(female_data)
+
+cat("Number of males:", num_males, "\n")
+cat("Number of females:", num_females)
+
+#c.
+gender_counts <- c(num_males, num_females) 
+gender_labels <- c("Male", "Female") 
+
+barplot(gender_counts, names.arg = gender_labels, col = c("blue", "pink"), 
+        main = "Gender Distribution in Household Data", 
+        xlab = "Gender", ylab = "Number of Individuals", 
+        legend.text = c("Male", "Female"), args.legend = list(x = "topright"))
+
+```
+
+```{r}
+#5.
+#a.
+expenses <- c(60, 10, 5, 25)
+expense_labels <- c("Food", "Electricity", "Savings", "Miscellaneous")
+
+percentages <- round(expenses / sum(expenses) * 100, 1)
+
+pie(expenses, labels = paste(expense_labels, percentages, "%", sep = ""), 
+    col = c("lightblue", "lightgreen", "lightyellow", "lightcoral"), 
+    main = "Dela Cruz Family Monthly Expenses")
+
+```
+
+```{r}
+#6.
+#a.
+data(iris)
+str(iris)
+
+#b.
+iris_means <- c(mean(iris$Sepal.Length), mean(iris$Sepal.Width), mean(iris$Petal.Length), mean(iris$Petal.Width))
+iris_means
+
+#c.
+pie(table(iris$Species), 
+    labels = paste(names(table(iris$Species)), round(table(iris$Species)/nrow(iris)*100, 1), "%", sep = " "), 
+    col = c("lightblue", "lightgreen", "lightcoral"), 
+    main = "Species Distribution in Iris Dataset")
+
+#d.
+setosa <- iris[iris$Species == "setosa", ]
+versicolor <- iris[iris$Species == "versicolor", ]
+virginica <- iris[iris$Species == "virginica", ]
+
+tail(setosa, 6)
+tail(versicolor, 6)
+tail(virginica, 6)
+
+#e.
+plot(iris$Sepal.Length, iris$Sepal.Width, 
+     col = as.numeric(iris$Species), 
+     pch = as.numeric(iris$Species), 
+     main = "Iris Dataset", 
+     sub = "Sepal Width and Length", 
+     xlab = "Sepal Length (cm)", 
+     ylab = "Sepal Width (cm)")
+
+legend("topright", legend = levels(iris$Species), 
+       col = 1:3, pch = 1:3)
+
+#f.
+#The scatterplot shows us that the different iris species have distinct features 
+  #when it comes to their sepals.
+
+  #Setosa flowers tend to have shorter sepals and wider sepals compared to the 
+      #other two species.
+
+  #Versicolor and Virginica have more similar sepal sizes, but Virginica flowers 
+    #generally have longer sepals than Versicolor flowers.
+
+#This means that by looking at the sepal length and width, we can get a good 
+#idea of which species of iris we're dealing with!
+```
+
+```{r}
+#7.
+#a.
+library(readxl)  
+alexa_data <- read_excel("alexa_file.xlsx")
+
+
+alexa_data$variation <- gsub("Black\\s+Dot", "Black Dot", alexa_data$variation)
+alexa_data$variation <- gsub("Black\\s+Plus", "Black Plus", alexa_data$variation)
+alexa_data$variation <- gsub("Black\\s+Show", "Black Show", alexa_data$variation)
+alexa_data$variation <- gsub("Black\\s+Spot", "Black Spot", alexa_data$variation)
+alexa_data$variation <- gsub("White\\s+Dot", "White Dot", alexa_data$variation)
+alexa_data$variation <- gsub("White\\s+Plus", "White Plus", alexa_data$variation)
+alexa_data$variation <- gsub("White\\s+Show", "White Show", alexa_data$variation)
+alexa_data$variation <- gsub("White\\s+Spot", "White Spot", alexa_data$variation)
+
+
+table(alexa_data$variation)
+
+#b.
+library(dplyr)
+
+
+variations_count <- alexa_data %>%
+  count(variation, name = "Total")
+
+
+save(variations_count, file = "variations.RData")
+
+
+print(variations_count)
+
+#c.
+library(ggplot2)
+
+load("variations.RData")
+
+
+ggplot(variations_count, aes(x = variation, y = Total, fill = variation)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Total Count of Alexa Variations") +
+  xlab("Variation") +
+  ylab("Total Numbers") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set3")
+
+#d.
+variations_count$Category <- ifelse(grepl("Black", variations_count$variation), "Black Variants", 
+                                    ifelse(grepl("White", variations_count$variation), "White Variants", NA))
+
+black_white_variants <- variations_count %>% filter(!is.na(Category))
+
+
+ggplot(black_white_variants, aes(x = variation, y = Total, fill = variation)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ Category, scales = "free_x") +  
+  ggtitle("Counts of Alexa Black and White Variants") +
+  xlab("Variation") +
+  ylab("Total Numbers") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set2")  
+```
+
