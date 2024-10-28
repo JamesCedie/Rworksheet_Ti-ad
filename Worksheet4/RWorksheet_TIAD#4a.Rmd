@@ -67,3 +67,107 @@ output: pdf_document
   excel_table
 ```
 
+```{r}
+#Using Conditional Statement
+#6.Full search
+  x <- readline(prompt = "Enter a number between 1 to 50: ")
+  if(x <= 50 && x >= 1){
+    print("TRUE")
+    x
+   }else{
+    print("The number selected is beyond the range of 1 to 50")
+   }
+```
+
+```{r}
+#7. Change
+ price_input <- as.numeric(readline(prompt = "Enter the price of the snack (divisible by 50): "))
+
+calculate_minimum_bills <- function(price) {
+  if (is.na(price)) {
+    cat("Please enter a valid number.\n")
+    return()
+  }
+  
+  if (price %% 50 != 0) {
+    cat("Price must be a number divisible by 50.\n")
+  } else {
+    denominations <- c(1000, 500, 200, 100, 50)
+    
+    bill_count <- 0
+    
+    for (denom in denominations) {
+      if (price >= denom) {
+        count <- price %/% denom
+        bill_count <- bill_count + count
+        price <- price - (count * denom)
+      }
+    }
+    
+    if (bill_count > 0) {
+      cat("Minimum number of bills needed:", bill_count, "\n")
+    } else {
+      cat("No bills needed.\n")
+    }
+  }
+}
+
+calculate_minimum_bills(price_input)
+
+```
+
+```{r}
+#8.
+#a.
+Name <- c("Annie", "Thea", "Steve", "Hanna")
+Grade1 <- c(85, 65, 75, 95)
+Grade2 <- c(65, 75, 55, 75)
+Grade3 <- c(85, 90, 80, 100)
+Grade4 <- c(100, 90, 85, 90)
+
+Grade_df <- data.frame(Name, Grade1, Grade2, Grade3, Grade4)
+Grade_df
+
+#b.
+Grade_df$Average <- (Grade_df$Grade1 + Grade_df$Grade2 + Grade_df$Grade3 + Grade_df$Grade4) / 4
+
+for (i in 1:nrow(Grade_df)) {
+  if (Grade_df$Average[i] > 90) {
+    cat(Grade_df$Name[i], "’s average grade this semester is", round(Grade_df$Average[i], 2), ".\n")
+  }
+}
+
+#c
+test_averages <- numeric(ncol(Grade_df) - 1)
+
+for (j in 2:ncol(Grade_df)) { 
+  total_score <- 0
+  for (i in 1:nrow(Grade_df)) {
+    total_score <- total_score + Grade_df[i, j]
+  }
+  test_averages[j - 1] <- total_score / nrow(Grade_df)
+}
+
+for (n in 1:length(test_averages)) {
+  if (test_averages[n] < 80) {
+    cat("The", n, "test was difficult.\n")
+  }
+}
+
+#d.
+for (i in 1:nrow(Grade_df)) {
+  highest_score <- Grade_df[i, 2]
+ 
+  for (j in 3:ncol(Grade_df)) {  
+    if (Grade_df[i, j] > highest_score) {
+      highest_score <- Grade_df[i, j]  
+    }
+  }
+  
+  
+  if (highest_score > 90) {
+    cat(Grade_df$Name[i], "’s highest grade this semester is", highest_score, ".\n")
+  }
+}
+```
+
