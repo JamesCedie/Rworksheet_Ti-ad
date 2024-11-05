@@ -123,8 +123,64 @@ str(traffic_data)
 #This dataset has 4 variables which is DataTime, Junction, Vehicles, and ID.
 
 #b.
-subset_junction <- subset(traffic_data, Junction == 1)
-subset_junction
+junction <- subset(traffic_data, select = Junction)
+head(junction)
+tail(junction)
 
+#c.
+library(ggplot2)
+ggplot(traffic_data, aes(x = DateTime, y = Vehicles, color = Junction)) +
+  geom_line() +
+  labs(title = "Traffic Counts by Junction", x = "Date & Time", y = "Vehicles")
+
+```
+
+```{r}
+#7.
+library("readxl")
+alexa_data <- read_xlsx("D://RScripts//alexa_file.xlsx")
+
+#a.
+str(alexa_data)
+ncol(alexa_data)
+#alexa file has 3,150 observations and 5 columns
+
+#b.
+library(dplyr)
+variation_ttl <- alexa_data %>%
+  group_by(variation) %>%
+  summarize(total = n())
+print(variation_ttl)
+
+#c.
+ggplot(variation_ttl, aes(x = variation, y = total, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Variations", x = "Variation", y = "Total") +
+  theme_minimal()
+
+#d.
+library(dplyr)
+num_of_verified_reviews <- alexa_data %>%
+  group_by(date) %>%
+  summarize(count = n()) %>%
+  arrange(date)
+
+library(ggplot2)
+ggplot(num_of_verified_reviews, aes(x = date, y = count)) +
+  geom_line(color = "blue") +
+  labs(title = "Verified Reviews Over Time", x = "Date", y = "Verified Reviews") +
+  theme_minimal()
+
+#e.
+variation_rate <- alexa_data %>%
+  group_by(variation) %>%
+  summarize(avg_rating = mean(rating, na.rm = TRUE)) %>%
+  arrange(desc(avg_rating))
+variation_rate
+
+ggplot(variation_rate, aes(x = reorder(variation, avg_rating), y = avg_rating, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Ratings by Variation", x = "Variation", y = "Average Rating") +
+  coord_flip()
 ```
 
